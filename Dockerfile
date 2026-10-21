@@ -33,7 +33,9 @@ ARG UID
 ARG GID
 
 # Set Node.js options (heap limit Allocation failed - JavaScript heap out of memory)
-# ENV NODE_OPTIONS="--max-old-space-size=4096"
+# 0.12 frontend needs more than the ~4 GB V8 default on constrained builders.
+ARG NODE_MAX_OLD_SPACE=8192
+ENV NODE_OPTIONS="--max-old-space-size=${NODE_MAX_OLD_SPACE}"
 
 WORKDIR /app
 
